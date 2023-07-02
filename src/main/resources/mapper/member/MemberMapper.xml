@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.springexercise02.mapper.member.MemberMapper">
+
+   <resultMap id="memberResultMap" type="Member">
+       <result column="ID" property="id"></result>
+       <result column="MEMBER_ID" property="loginId"></result>
+       <result column="MEMBER_NAME" property="name"></result>
+       <result column="PASSWORD" property="password"></result>
+   </resultMap>
+
+    <insert id="saveMember" parameterType="Member">
+        INSERT INTO MEMBER(MEMBER_ID,MEMBER_NAME,PASSWORD) VALUES(#{loginId},#{name},#{password})
+    </insert>
+
+    <select id="findByLoginIdMember" parameterType="String" resultMap="memberResultMap">
+        SELECT * FROM MEMBER WHERE MEMBER_ID = #{loginId}
+    </select>
+
+</mapper>

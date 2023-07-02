@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.springexercise02.mapper.item.ItemMapper">
+
+    <resultMap id="itemResultMap" type="Item">
+        <result column="ID" property="id"></result>
+        <result column="NAME" property="itemName"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="QUANTITY" property="quantity"></result>
+    </resultMap>
+
+    <select id="selectAllItem" resultMap="itemResultMap">
+        SELECT * FROM ITEM
+    </select>
+
+    <insert id="saveItem" parameterType ="Item">
+        INSERT INTO item(NAME,PRICE,QUANTITY) VALUES(#{itemName},#{price},#{quantity})
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT MAX(ID) FROM ITEM
+        </selectKey>
+    </insert>
+
+    <select id="selectByIdItem" resultMap="itemResultMap" parameterType="long">
+        SELECT * FROM ITEM WHERE ID=#{id}
+    </select>
+
+    <update id="updateItem" parameterType="Item">
+        UPDATE ITEM SET NAME = #{itemName},PRICE = #{price},QUANTITY=#{quantity} WHERE ID=#{id}
+    </update>
+
+</mapper>
